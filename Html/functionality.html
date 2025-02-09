@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page - Teca62 Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #1e3c72, #2a5298);
+            background-image: url(../Gallery/images/functionality.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Main Container */
+        #homepageContainer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(1px);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            padding: 30px 20px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        /* Title */
+        #teca62 {
+            font-family: "Georgia", serif;
+            font-size: 30px;
+            color: #f1f1f1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            margin-bottom: 25px;
+        }
+
+        /* Button Styling */
+        .homepage-button {
+            display: block;
+            margin: 15px auto;
+            padding: 15px 25px;
+            width: 60%;
+            height: 70px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            background: linear-gradient(to right,grey,purple,darkred);
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+        }
+
+        .homepage-button i {
+            margin-right: 10px;
+        }
+
+        .homepage-button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #00c6ff, #007bff);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .homepage-button:focus {
+            outline: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            #homepageContainer {
+                width: 95%;
+            }
+            .homepage-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="homepageContainer">
+        <h2 id="teca62">Welcome to Teca62 Bank</h2>
+        <a href="Creditform.html" class="homepage-button"><i class="fas fa-credit-card"></i> Credit</a>
+        <a href="CheckBalance.html" class="homepage-button"><i class="fas fa-wallet"></i> Check Balance</a>
+        <a href="DebitForm.html" class="homepage-button"><i class="fas fa-minus-circle"></i> Debit</a>
+        <a href="CheckStatement.html" class="homepage-button"><i class="fas fa-file-alt"></i> Check Statement</a>
+        <a href="ChangePin.html" class="homepage-button"><i class="fas fa-key"></i> Change Pin</a>
+        <a href="Mobile.html" class="homepage-button"><i class="fas fa-mobile-alt"></i> Mobile Transaction</a>
+        <a href="closingAccount.html" class="homepage-button"><i class="fas fa-times-circle"></i> Closing Account</a>
+    </div>
+</body>
+</html>

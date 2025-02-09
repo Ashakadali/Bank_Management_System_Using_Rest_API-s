@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            width: 100%;
+            height: 600px;
+            margin: 0;
+            color: Black;
+            bottom: 0%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-image: url(../Gallery/images/bankmanagement.png);
+            background-repeat: no-repeat;
+            background-size:100%;
+            background-position: center;
+        }
+        header {
+            background-color: Darkblue;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-color: transparent;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-align: center;
+            padding: 50px;
+            border-radius: 10px;
+            width: 700px;
+            box-shadow: 0 4px 8px black;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        h1 {
+            color: black;
+            font-size: xx-large;
+        }
+        .form {
+            color: black;
+            font-size: xx-large;
+        }
+        .login-section {
+            display: none;
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .login-section.active {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .user-login, .admin-login {
+            width: 40%;
+            color: darkred;
+        }
+        input[type="email"], input[type="password"], input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+            font-size: x-large;
+            color: black;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .submit {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="email"], input[type="password"], input[type="submit"]:hover {
+            font-weight: bold;
+            color:  black;
+        }
+        .hoverContainer {
+            background-color: transparent;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+            height: 150px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            transition: transform 0.1s ease; 
+        }
+        .hover-down {
+            transform: translate(-50%, 250%);
+        }
+        .button-container {
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: Darkblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: LightBlue;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-section {
+                flex-direction: column;
+            }
+
+            .user-login, .admin-login {
+                width: 100%;
+            }
+
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="loginpage.html">Home</a></li>
+                <li><a href="AboutPage.html">About Us</a></li>
+                <li><a href="Contactpage.html">Contact Us</a></li>
+                <li><a href="Registration.html">Register Here</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1><Big><big><big>TECA 62</big></big></big></h1>
+    <!-- <div style="margin-top: 20px;">
+        <a href="./Registration.html" style="text-decoration: none;">
+            <h1 class="form" style="text-align: center; margin: 20px auto; color: darkblue;">Register here</h1>
+        </a>
+    </div> -->
+
+        <!-- Hover Container -->
+        <div id="hoverContainer" class="hoverContainer">
+            <div class="button-container">
+                <a href="javascript:void(0);" class="button" onclick="showLogin('user')">User Login</a>
+                <a href="javascript:void(0);" class="button" onclick="showLogin('admin')">Admin Login</a>
+            </div>
+        </div>
+
+        <!-- User and Admin Login Sections -->
+        <div id="user-login-section" class="login-section">
+            <div class="user-login">
+                <h1><Big>User Login</Big></h1>
+                <div class="form">
+                    <input type="email" placeholder="Enter Your Email" id="useremailid">
+                    <input type="password" placeholder="Enter Your Password" id="userpassword">
+                    <button onclick="userlogin()">Login</button>
+                </div>
+            </div>
+        </div>
+        <div id="admin-login-section" class="login-section">
+            <div class="admin-login">
+                <h1><Big>Admin Login</Big></h1>
+                <div class="form">
+                    <input type="email" placeholder="Enter Your Email" id="emailid">
+                    <input type="password" placeholder="Enter Your Password" id="password">
+                    <button onclick="adminlogin()">Login</button>
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+
+
+    <!-- JavaScript for Toggling Login Sections -->
+    <script>
+        function showLogin(type) {
+            const hoverContainer = document.getElementById("hoverContainer");
+            const userLoginSection = document.getElementById("user-login-section");
+            const adminLoginSection = document.getElementById("admin-login-section");
+
+            // Hide both login sections
+            userLoginSection.classList.remove("active");
+            adminLoginSection.classList.remove("active");
+
+            // Add animation to move the hover container down
+            hoverContainer.classList.add("hover-down");
+
+            // Show the relevant login section after the hover container has moved
+            setTimeout(function () {
+                if (type === "user") {
+                    userLoginSection.classList.add("active");
+                } else if (type === "admin") {
+                    adminLoginSection.classList.add("active");
+                }
+            }, 500); // Delay matches the hover container transition time
+        }
+
+        
+        async function adminlogin() {
+    const emailid=document.getElementById("emailid").value;
+    const password=document.getElementById("password").value;
+
+    const response=await fetch(`http://localhost:1919/adminlogin/${encodeURIComponent(emailid)}/${encodeURIComponent(password)}`,{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+        },
+    });
+    const mydata=await response.json();
+    console.log(response);
+    console.log(mydata);
+    try{
+        if(mydata.httpstatuscode==202){
+            window.open("./AdminFunctionality.html");
+        }
+    }
+    catch(error){
+        window.open("./loginpage.html");
+    }
+}
+
+
+    async function userlogin() {
+    const emailid=document.getElementById("useremailid").value;
+    const password=document.getElementById("userpassword").value;
+
+    const response=await fetch(`http://localhost:1919/userlogin/${encodeURIComponent(emailid)}/${encodeURIComponent(password)}`,{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+        },
+    });
+    const mydata=await response.json();
+    console.log(response);
+    console.log(mydata);
+    try{
+        if(mydata.httpstatuscode==202){
+            window.open("./functionality.html");
+        }
+    }
+    catch(error){
+        window.open("./loginpage.html");
+    }
+}
+    </script>  
+</body>
+</html>

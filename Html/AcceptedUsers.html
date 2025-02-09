@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Users</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 40px auto;
+            max-width: 900px;
+            background-color: lightgray;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .update-btn {
+            background-color: grey;
+            box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4);
+            height: 30px;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Accepted Users</h1>
+        <table id="acceptedUsersTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Mobile Number</th>
+                    <th>Aadhar NUmber</th>
+                    <th>Account Number</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamically populated rows -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        window.onload = function() {
+            fetchAcceptedUsers();
+        };
+        function fetchAcceptedUsers() {
+            fetch("http://localhost:1919/allaccepteddetails")
+                .then(response => response.json())
+                .then(data => displayAcceptedUsers(data))
+                .catch(error => console.error("Error fetching accepted users:", error));
+        }
+        function displayAcceptedUsers(data) {
+            const tableBody = document.querySelector("#acceptedUsersTable tbody");
+
+            if (!data || !data.data || data.data.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='5'>No accepted users found</td></tr>";
+                return;
+            }
+
+            tableBody.innerHTML = "";
+            data.data.forEach(user => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td contenteditable="true">${user.name}</td>
+                    <td contenteditable="true">${user.emailid}</td>
+                    <td contenteditable="true">${user.mobilenumber}</td>
+                    <td contenteditable="true">${user.aadharnumber}</td>
+                    <td contenteditable="true">${user.accountnumber}</td>
+                    <td contenteditable="true">${user.gender}</td>
+                    <td contenteditable="true">${user.address}</td>
+                    <td contenteditable="true">${user.status}</td>
+                    
+                    <td>
+                        <button class="action-btn update-btn" onclick="handleUpdateButtonClick(event)">Update</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+      
+        function handleUpdateButtonClick(event) {
+            const row = event.target.closest('tr');
+            if (!row) {
+                alert("Unable to find the row.");
+                return;
+            }
+            const userId = row.cells[0].textContent.trim();
+            const updatedDetails = {
+                name: row.cells[1].textContent.trim(),
+                emailid: row.cells[2].textContent.trim(),
+                mobilenumber: row.cells[3].textContent.trim(),
+            };
+            if (!userId || !updatedDetails.name || !updatedDetails.emailid || !updatedDetails.mobilenumber) {
+                alert("error");
+                return;
+            }
+            updateUserDetails(userId, updatedDetails);
+        }
+        function updateUserDetails(id, updatedDetails) {
+            fetch(`http://localhost:1919/updateaccepteddetails/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedDetails)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.httpstatuscode === 200) {
+                        alert("User details updated successfully!");
+                    } else {
+                        alert(`Error updating user details: ${data.responsemsg}`);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Failed to update user details.");
+                });
+        }
+    </script>
+</body>
+</html>

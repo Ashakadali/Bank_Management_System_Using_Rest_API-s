@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Form</title>
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('https://via.placeholder.com/1600x900') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s ease;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid grey;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            text-align: center;
+            width: 400px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .form-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, purple, black, hotpink);
+            border: 2px solid goldenrod;
+        }
+        h2 {
+            font-size: 3rem;
+            color: darkred;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .form-container:hover h2 {
+            color: goldenrod;
+        }
+        .input-wrapper {
+            position: relative;
+            margin: 15px 0;
+        }
+
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 12px 12px 40px; 
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            background: transparent;
+            color: goldenrod;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: darkred;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+    
+        .form-container:hover input::placeholder {
+            color: goldenrod;
+        }
+
+
+        .input-wrapper i {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: black;
+            font-size: 1.2rem;
+            pointer-events: none; 
+            transition: color 0.3s ease;
+        }
+
+        .form-container:hover .input-wrapper i {
+            color: goldenrod;
+        }
+        input[type="submit"] {
+            background: linear-gradient(135deg, purple, black, grey);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg,darkred, darkblue, black, hotpink);
+            color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="formContainer">
+        <h2>Check Balance</h2>
+        <div class="form">
+            <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input 
+                    type="text" 
+                    id="accountnumber" 
+                    name="accountnumber" 
+                    placeholder="Enter The Account Number" 
+                    required 
+                    title="Account number must be 10 digits">
+            </div>
+            <button onclick="getBalance()">submit</button>
+        </div>
+    </div>
+
+    <script>
+        const formContainer = document.getElementById('formContainer');
+        const body = document.body;
+
+    
+        formContainer.addEventListener('mouseenter', () => {
+            body.style.background =  "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1600x900') no-repeat center center/cover";
+        });
+
+        formContainer.addEventListener('mouseleave', () => {
+            body.style.background = 'linear-gradient(135deg, purple, grey, hotpink)';
+               
+        });
+
+
+
+
+
+        
+        async function getBalance() {
+    const accountnumber = document.getElementById("accountnumber").value.trim();
+    if (!accountnumber) {
+        alert("Please enter a valid account number");
+        return;
+    }
+    try {
+        const response = await fetch(`http://localhost:1919/checkbalance/${accountnumber}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            
+            alert("Amount fetched successfully! "+responseData.data);
+            // messageElement.textContent = `Amount fetched successfully! Balance: ${responseData.balance}`;
+            // messageElement.style.color = "goldenrod";
+        } else {
+            const errorData = await response.json();
+            console.error("Server Error:", errorData);
+            alert(`Server Error: ${errorData.message || "Request failed with status " + response.status}`);
+        }
+    } catch (error) {
+        console.error("Network Error:", error);
+        alert("A network error occurred. Please try again later.");
+    }
+}l
+
+    </script>
+</body>
+</html>

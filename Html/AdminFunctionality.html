@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Buttons</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- FontAwesome for icons -->
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: url(../Gallery/images/adminfunctionality.jpg);
+            background-size: cover;
+            background-position: center;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dark Overlay for Contrast */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 10px;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Semi-transparent dark overlay */
+            z-index: 1;
+        }
+
+        /* Heading Styling */
+        h1 {
+            font-size: 3rem;
+            color: goldenrod;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
+            z-index: 2;
+            transform: translateX(-50px);
+        }
+
+        /* Button Container with Glassmorphism and Glow */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+            backdrop-filter: blur(5px); /* Blur Effect */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5), 
+                        0 0 30px rgba(255, 255, 255, 0.4); /* Outer Glow Effect */
+            border-radius: 20px;
+            padding: 25px 40px;
+            z-index: 5;
+            max-width: 300px;
+            text-align: center;
+            transform: translateX(-50px); /* Shift 50px to the left */
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(135deg, goldenrod); /* Gradient Colors */
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Button Hover Effects */
+        .btn:hover {
+            transform: scale(1.1) translateY(-5px); /* Scale and lift the button */
+            backdrop-filter: blur(1px);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5), 
+                        0 0 15px rgba(255, 65, 108, 0.8); /* Add glowing shadow */
+        }
+
+        /* Button Text Glow Effect */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .button-container {
+                padding: 15px 20px;
+                max-width: 250px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Heading -->
+    <h1>Admin Functionality</h1>
+
+    <!-- Glassmorphism Button Container -->
+    <div class="button-container">
+        <a href="AcceptedUsers.html" class="btn"><i class="fas fa-check-circle"></i> Accepted Users</a>
+        <a href="PendingUsers.html" class="btn"><i class="fas fa-clock"></i> Pending Users</a>
+        <a href="ClosingUsers.html" class="btn"><i class="fas fa-times-circle"></i> Closing Users</a>
+    </div>
+
+    <script>
+
+       function OpenPendingDetails(){
+        window.location.href="AllPendingDetails.html";
+       }
+    </script>
+</body>
+</html>
